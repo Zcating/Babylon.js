@@ -82,7 +82,14 @@ export class DirectionalLight extends ShadowLight {
     constructor(name: string, direction: Vector3, scene: Scene) {
         super(name, scene);
         this.position = direction.scale(-1.0);
-        this.direction = direction;
+        if (scene.useRightHandSystem) {
+            direction.x = -direction.x;
+            direction.y = -direction.y;
+            direction.z = -direction.z;
+            this.direction = direction;
+        } else {
+            this.direction = direction;
+        }
     }
 
     /**
